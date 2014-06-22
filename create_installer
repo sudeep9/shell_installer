@@ -1,0 +1,36 @@
+#!/usr/bin/env ksh
+
+usage()
+{
+    echo "Usage: $0 <path to tar.gz> <template file> [outdir]"
+}
+
+if [ $# -lt 2 ]; then
+    echo "Error: not enough arguments"
+    usage
+    exit 1
+fi
+
+payload=$1
+templateFile=$2
+
+if [ $# -gt 2 ]; then
+    outdir=$3
+else
+    outdir=$(pwd)/output
+fi
+
+mkdir -p $outdir
+
+echo "Creating installer out of         : $payload"
+echo "Using template                    : $templateFile"
+echo "Installer will be created in dir  : $outdir"
+
+installerFile=$outdir/$(basename $payload | cut -d. -f 1)_install.sh
+
+cp $templateFile $installerFile
+chmod +x $installerFile
+
+cat $payload >> $installerFile
+
+echo "Installer file: $installerFile"
