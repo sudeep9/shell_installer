@@ -17,7 +17,20 @@ Usage
 
 Say you have archive, say myprogram.tar.gz, then the command to create installer is:
 
-```bash
-./create_installer myprogram.tar.gz .
-    
 ```
+cd shell_installer
+./create_installer myprogram.tar.gz templates/basic.sh $HOME/installers
+```
+
+This will create installer file: $HOME/installers/myprogram_install.sh
+
+
+### Using the installer
+
+In the target environment do this:
+
+```
+myprogram_install.sh /some/place/where/u/want/to/install
+```
+
+if you omit the install dir, the current dir is used for the purpose
